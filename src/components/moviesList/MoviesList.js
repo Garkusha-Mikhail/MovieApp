@@ -9,13 +9,14 @@ function MoviesList() {
   const [movieData, setMovieData] = useState([]);
   const [searchStatus, setSerchStatus] = useState(false);
   const [searchedValue, setSearchedValue] = useState("");
-  const [currentPage, setCurrentPage] = useState();
-  const [searchCurrentPage, setSearchCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const [totalPages, setTotalPages] = useState();
   const { getAllMovies, getSearchedMovies, getPagesInfo } = useMovieService();
 
   useEffect(() => {
     if (!searchStatus) {
+      /* console.log(`первый вызов ${currentPage}`); */
       getAllMovies(currentPage)
         .then((res) => setMovieData(res))
         .catch("e");
@@ -24,25 +25,16 @@ function MoviesList() {
 
   useEffect(() => {
     if (searchStatus) {
-      getSearchedMovies(searchedValue)
+      /* console.log(`вызов найденных фильмов для страницы ${currentPage}`); */
+      getSearchedMovies(searchedValue, currentPage)
         .then((res) => {
-          setMovieData(res.list);
+          setMovieData(res.list); //не передается страница. в консоли ундеф
           setTotalPages(res.total);
         })
         .catch("e");
     }
-  }, [searchedValue]);
-  //ниже код для проверки
-  useEffect(() => {
-    if (searchStatus) {
-      getSearchedMovies(searchedValue)
-        .then((res) => {
-          setMovieData(res.list);
-          setTotalPages(res.total);
-        })
-        .catch("e");
-    }
-  }, [searchCurrentPage]);
+    console.log(movieData);
+  }, [searchedValue, currentPage]);
 
   useEffect(() => {
     if (!searchStatus) {
@@ -55,11 +47,14 @@ function MoviesList() {
   const onSearch = debounceCallback((inputValue) => {
     if (inputValue) {
       setSerchStatus(true);
+      setCurrentPage(1);
       setSearchedValue(inputValue);
-      console.log("in");
+
+      /* console.log("in"); */
     } else {
       setSerchStatus(false);
-      getAllMovies(currentPage)
+      setCurrentPage(1);
+      getAllMovies() //удалил тут currentPageсо входа . по идее он не нужен
         .then((res) => setMovieData(res))
         .catch("e");
     }
@@ -173,11 +168,12 @@ function MoviesList() {
       />
       <Pagination
         onChange={(page) => {
-          console.log(page);
-          searchStatus ? setSearchCurrentPage(page) : setCurrentPage(page);
-          console.log(`search = ${searchCurrentPage}, st = ${currentPage}`);
+          setCurrentPage(page);
+          console.log(`консоль в онченьже${page}`);
+          /* console.log(`search = ${searchCurrentPage}, st = ${currentPage}`); */
         }}
         defaultCurrent={1}
+        current={currentPage}
         total={totalPages} //я попробовал подвязать тотал к ответу с сервера. после 500й страницы выдает 422 ошибку. это ограничение самой апишки.
         showSizeChanger={false}
       />

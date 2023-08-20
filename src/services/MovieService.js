@@ -33,6 +33,7 @@ const useMovieService = () => {
     const res = await getData(
       `${_apiBase}search/movie?${_apiKey}&query=${searchValue}&page=${page}`
     );
+    /* console.log(`гетсерчед запустился`); */
     return {
       page: res.page,
       list: res.results.map(_transformMovie),
