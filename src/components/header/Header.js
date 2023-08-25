@@ -1,28 +1,34 @@
-import { Tabs, Space } from "antd";
-import MoviesList from "../moviesList/MoviesList";
+import { Tabs } from 'antd'
+import { useEffect, useState } from 'react'
 
-const onChange = (key) => {
-  console.log(key);
-};
-const items = [
-  {
-    key: "1",
-    label: `Search`,
-    children: <MoviesList />,
-  },
-  {
-    key: "2",
-    label: `Rate`,
-    children: `Content of Tab Pane 2`,
-  },
-];
+import MoviesList from '../moviesList/MoviesList'
+import RatedList from '../ratedList/RatedList'
 
-const Header = () => (
-  <Tabs
-    defaultActiveKey="1"
-    items={items}
-    onChange={onChange}
-    style={{ display: "flex", alignItems: "center" }}
-  />
-);
-export default Header;
+const Header = ({ guestId }) => {
+  const [isRate, setIsRate] = useState(false)
+
+  const onChange = (key) => {
+    console.log(key)
+    if (key === '2') {
+      setIsRate(true)
+    } else {
+      setIsRate(false)
+    }
+  }
+
+  const items = [
+    {
+      key: '1',
+      label: 'Search',
+      children: <MoviesList guestId={guestId} />,
+    },
+    {
+      key: '2',
+      label: 'Rate',
+      children: <RatedList guestId={guestId} isRate={isRate} />,
+    },
+  ]
+
+  return <Tabs items={items} onTabClick={onChange} style={{ alignItems: 'center', margin: '0 auto' }} />
+}
+export default Header
