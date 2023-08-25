@@ -5,21 +5,21 @@ import useMovieService from '../../services/MovieService'
 import './App.css'
 
 function App() {
-  const { createGuestSession } = useMovieService()
-  const [guestId, setGuestId] = useState()
+    const { createGuestSession } = useMovieService()
+    const [guestId, setGuestId] = useState()
 
-  useEffect(() => {
-    createGuestSession()
-      .then((res) => setGuestId(res))
-      .catch('e')
-  }, [])
-  /* console.log(`app use eff ${guestId}`); */
+    useEffect(() => {
+        createGuestSession()
+            .then((res) => setGuestId(res))
+            .catch('e')
+    }, [])
+    /* console.log(`app use eff ${guestId}`); */
 
-  return (
-    <div className="App">
-      <Header guestId={guestId} />
-    </div>
-  )
+    return (
+        <div className="App">
+            <Header guestId={guestId} />
+        </div>
+    )
 }
 
 export default App
