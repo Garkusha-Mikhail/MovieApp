@@ -1,5 +1,5 @@
 import { Tabs } from 'antd'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import MoviesList from '../moviesList/MoviesList'
 import RatedList from '../ratedList/RatedList'
