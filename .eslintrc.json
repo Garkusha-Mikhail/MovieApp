@@ -22,8 +22,8 @@
   "plugins": ["react", "prettier", "import"],
   "rules": {
     "indent": [
-      ["error", 2, { "offsetTernaryExpressions": true }],
-      ["error", 2, { "SwitchCase": true }]
+      [2, 2, { "offsetTernaryExpressions": true }],
+      [2, 2, { "SwitchCase": true }]
     ],
     "prettier/prettier": "error",
     "linebreak-style": [0, "unix"],
