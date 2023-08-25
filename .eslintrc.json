@@ -10,7 +10,8 @@
     "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "prettier"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -22,8 +23,8 @@
   "plugins": ["react", "prettier", "import"],
   "rules": {
     "indent": [
-      [2, 2, { "offsetTernaryExpressions": true }],
-      [2, 2, { "SwitchCase": true }]
+      [2, 2, { "SwitchCase": 1 }],
+      [2, 2, { "offsetTernaryExpressions": true }]
     ],
     "prettier/prettier": "error",
     "linebreak-style": [0, "unix"],
