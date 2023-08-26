@@ -95,10 +95,6 @@ function MoviesList(props) {
                                 alt={item.title}
                                 style={{
                                     overflow: 'hidden',
-                                    /*maxWidth: 200,
-                  minWidth: 100,
-                  maxHeight: 280,
-                  minHeight: 100, */
                                     width: '100%',
                                 }}
                             />
@@ -151,8 +147,8 @@ function MoviesList(props) {
                             <div className="movie_descr">{item.overview}</div>
                             <Rate
                                 allowHalf
-                                //defaultValue={0}
-                                value={10}
+                                defaultValue={1}
+                                value={item.rating}
                                 count={10}
                                 onChange={(value) => {
                                     createRatedPost(guestId, item.id, value)
