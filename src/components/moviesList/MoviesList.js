@@ -158,7 +158,7 @@ function MoviesList(props) {
                                     fontSize: 15,
                                     position: 'absolute',
                                     bottom: 0,
-                                    right: 10,
+                                    right: 0,
                                     whiteSpace: 'nowrap',
                                 }}
                                 className="movie_rate"

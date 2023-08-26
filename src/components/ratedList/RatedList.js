@@ -14,30 +14,29 @@ const RatedList = ({ guestId, isRate }) => {
     const [newItemLoading, setNewItemLoading] = useState(false)
 
     const { getRatedMovies, error } = useMovieService()
-    console.log(isRate)
 
     useEffect(() => {
         if (isRate) {
             setNewItemLoading(true)
             getRatedMovies(guestId, currentPage)
                 .then((res) => {
+                    console.log(res)
                     setMovieData(res.list)
                     setTotalPages(res.total)
                 })
                 .then(() => setNewItemLoading(false))
                 .catch('e')
         }
-    }, [currentPage, isRate /* , newRate */])
+    }, [currentPage, isRate])
 
-    function renderItems() {
-        console.log(`total pages ${totalPages}`)
+    function renderItems(data) {
         return (
             <List
                 className="movie_list"
                 width={'100%'}
                 style={{ maxWidth: 940, margin: '0 auto', padding: 20 }}
-                grid={{ gutter: 30, xs: 1, sm: 1, md: 2, lg: 2, xl: 2, xxl: 2 }}
-                dataSource={movieData}
+                grid={{ gutter: 30, xs: 1, sm: 1, md: 1, lg: 1, xl: 1, xxl: 1 }}
+                dataSource={data}
                 renderItem={(item) => (
                     <List.Item
                         className="movie-list_item"
@@ -125,7 +124,7 @@ const RatedList = ({ guestId, isRate }) => {
             />
         )
     }
-    const items = renderItems()
+    const items = renderItems(movieData)
     const spinner = newItemLoading ? <Spin /> : null
     const errorMessage = error ? <ErrorMessage /> : null
     return (
